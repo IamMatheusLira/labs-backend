@@ -6,7 +6,7 @@ class Lab extends Model {
       {
         name: DataTypes.STRING,
         address: DataTypes.STRING,
-        status: DataTypes.ENUM("ativo", "inativo"),
+        status: DataTypes.ENUM("active", "inactive"),
       },
       {
         sequelize,

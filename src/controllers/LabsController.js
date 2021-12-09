@@ -1,10 +1,10 @@
 const Lab = require("../models/Lab");
 
-const LAB_STATUS = ["ativo", "inativo"];
+const LAB_STATUS = ["active", "inactive"];
 
 class LabsController {
   async findAll(req, res) {
-    const labs = await Lab.findAll({ where: { status: "ativo" } });
+    const labs = await Lab.findAll({ where: { status: "active" } });
     return res.status(200).send(labs);
   }
 
@@ -54,7 +54,7 @@ class LabsController {
     if (!LAB_STATUS.includes(status)) {
       return res.status(400).send({
         error: true,
-        message: "Status must be 'ativo' or 'inativo'",
+        message: "Status must be 'active' or 'inactive'",
         lab: null,
       });
     }
@@ -103,7 +103,7 @@ class LabsController {
 
   async delete(req, res) {
     const { id } = req.body;
-    const DELETE_STATUS = "inativo";
+    const DELETE_STATUS = "inactive";
 
     if (!id) {
       return res.status(400).send({
