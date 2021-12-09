@@ -28,6 +28,7 @@ class Server {
   setRoutes() {
     this.app.get("/api", (req, res) => res.send({ message: "Hello Labs" }));
     this.app.use("/api/labs", require("./routes/LabsRouter.js"));
+    this.app.use("/api/exams", require("./routes/ExamsRouter.js"));
   }
 
   connectDb() {
