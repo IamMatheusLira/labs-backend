@@ -114,7 +114,7 @@ class LabsController {
     }
 
     try {
-      const lab = await Lab.findOne({ id });
+      const lab = await Lab.findOne({ where: { id } });
       if (!lab) {
         return res.status(400).send({
           error: true,
