@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres:
-    image: postgres:10.5
+    image: postgres
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -17,7 +17,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
 
   api:
     build:
@@ -39,4 +39,4 @@ services:
       - 8080:8080
 
 volumes:
-  pg-data:
+  postgres-data:
