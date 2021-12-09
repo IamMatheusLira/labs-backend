@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:10.5
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_DB_USER=pglabs
+      - APP_DB_PASS=pglabs
+      - APP_DB_NAME=labs
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: api
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  pg-data:
