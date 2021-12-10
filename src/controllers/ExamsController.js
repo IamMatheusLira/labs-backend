@@ -1,9 +1,52 @@
 const Exam = require("../models/Exam");
+const Lab = require("../models/Lab");
 
 const EXAM_TYPES = ["clinicalAnalysis", "image"];
 const EXAM_STATUS = ["active", "inactive"];
 
 class ExamsController {
+  async findOne(req, res) {
+    const { name } = req.params;
+
+    if (!name || name.trim() === "") {
+      return res
+        .status(400)
+        .send({ error: true, message: "Name cannot be blank", exam: null });
+    }
+
+    try {
+      const exam = await Exam.findOne({
+        where: { name, status: "active" },
+        include: [
+          {
+            model: Lab,
+            as: "labs",
+            through: { attributes: [] },
+          },
+        ],
+      });
+      if (!exam) {
+        return res.status(200).send({
+          error: true,
+          message: "Does not have this Exam",
+          exam: null,
+        });
+      }
+      return res.status(200).send({
+        error: false,
+        message: `Successfully find Exam`,
+        exam,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({
+        error: false,
+        message: "Unable to find Exam",
+        exam: null,
+      });
+    }
+  }
+
   async findAll(req, res) {
     const exams = await Exam.findAll({ where: { status: "active" } });
     return res.status(200).send(exams);
@@ -27,13 +70,21 @@ class ExamsController {
     }
 
     try {
-      console.log({ name, type });
-      const exam = await Exam.create({ name, type });
-      return res.status(201).send({
-        error: false,
-        message: `Successfully created Exam`,
-        exam,
-      });
+      const exam = await Exam.findOne({ where: { name } });
+      if (exam) {
+        return res.status(400).send({
+          error: true,
+          message: "Already have an exam with that name",
+          exam: exam,
+        });
+      } else {
+        const newExam = await Exam.create({ name, type });
+        return res.status(201).send({
+          error: false,
+          message: `Successfully created Exam`,
+          newExam,
+        });
+      }
     } catch (error) {
       return res.status(400).send({
         error: true,
@@ -77,7 +128,7 @@ class ExamsController {
     }
 
     try {
-      const exam = await Exam.findOne({ id });
+      const exam = await Exam.findOne({ where: { id } });
       if (!exam) {
         return res.status(400).send({
           error: true,
@@ -142,6 +193,83 @@ class ExamsController {
         error: true,
         message: "Unable to delete",
         exam: null,
+      });
+    }
+  }
+
+  async associate(req, res) {
+    const { exam, lab } = req.body;
+
+    if (!exam || !lab || !exam.id || !lab.id) {
+      return res.status(400).send({
+        error: true,
+        message: "Missing parameters",
+      });
+    }
+
+    try {
+      const findExam = await Exam.findOne({
+        where: { id: exam.id, status: "active" },
+        attributes: ["id", "name"],
+      });
+      if (!findExam) throw { message: "Does not have this Exam" };
+
+      const findLab = await Lab.findOne({
+        where: { id: lab.id, status: "active" },
+        attributes: ["id", "name"],
+      });
+      if (!findLab) throw { message: "Does not have this Lab" };
+
+      findExam.addLab(findLab.id);
+      return res.status(200).send({
+        error: false,
+        message: "Successfully associating Lab to Exam",
+        exam: findExam,
+        lab: findLab,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({
+        error: true,
+        message: error.message ? error.message : "Something went Wrong",
+      });
+    }
+  }
+
+  async disassociate(req, res) {
+    const { exam, lab } = req.body;
+
+    if (!exam || !lab || !exam.id || !lab.id) {
+      return res.status(400).send({
+        error: true,
+        message: "Missing parameters",
+      });
+    }
+
+    try {
+      const findExam = await Exam.findOne({
+        where: { id: exam.id, status: "active" },
+        attributes: ["id", "name"],
+      });
+      if (!findExam) throw { message: "Does not have this Exam" };
+
+      const findLab = await Lab.findOne({
+        where: { id: lab.id, status: "active" },
+        attributes: ["id", "name"],
+      });
+      if (!findLab) throw { message: "Does not have this Lab" };
+
+      findExam.removeLab(findLab.id);
+      return res.status(200).send({
+        error: false,
+        message: "Successfully disassociating Lab to Exam",
+        exam: findExam,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).send({
+        error: true,
+        message: error.message ? error.message : "Something went Wrong",
       });
     }
   }
