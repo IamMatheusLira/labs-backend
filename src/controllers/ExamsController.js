@@ -38,7 +38,6 @@ class ExamsController {
         exam,
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).send({
         error: false,
         message: "Unable to find Exam",
@@ -239,7 +238,6 @@ class ExamsController {
         lab: findLab,
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).send({
         error: true,
         message: error.message ? error.message : "Something went Wrong",
@@ -277,7 +275,6 @@ class ExamsController {
         exam: findExam,
       });
     } catch (error) {
-      console.log(error);
       return res.status(400).send({
         error: true,
         message: error.message ? error.message : "Something went Wrong",
