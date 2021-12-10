@@ -23,6 +23,7 @@ class Server {
   setupExpress() {
     this.app.use(express.json());
     this.app.use(cors());
+    this.app.use(express.urlencoded());
   }
 
   setRoutes() {

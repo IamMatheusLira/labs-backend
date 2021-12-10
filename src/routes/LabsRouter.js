@@ -11,8 +11,11 @@ class LabsRouter {
   setupRouter() {
     this.router.get("/", labsController.findAll);
     this.router.post("/", labsController.create);
+    this.router.post("/lot", labsController.lotCreate);
     this.router.put("/", labsController.update);
+    this.router.put("/lot", labsController.lotUpdate);
     this.router.delete("/", labsController.delete);
+    this.router.delete("/lot", labsController.lotDelete);
   }
 }
 
