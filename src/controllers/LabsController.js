@@ -4,8 +4,18 @@ const LAB_STATUS = ["active", "inactive"];
 
 class LabsController {
   async findAll(req, res) {
-    const labs = await Lab.findAll({ where: { status: "active" } });
-    return res.status(200).send(labs);
+    try {
+      const labs = await Lab.findAll({ where: { status: "active" } });
+      return res
+        .status(200)
+        .send({ error: false, message: "Successfully get labs", labs });
+    } catch (error) {
+      return res.status(500).send({
+        error: true,
+        message: "Something Went Wrong",
+        lab: null,
+      });
+    }
   }
 
   async create(req, res) {
@@ -31,9 +41,9 @@ class LabsController {
         lab,
       });
     } catch (error) {
-      return res.status(400).send({
+      return res.status(500).send({
         error: true,
-        message: "Unable to create Lab",
+        message: "Something Went Wrong",
         lab: null,
       });
     }
@@ -78,7 +88,7 @@ class LabsController {
         labs: rightLabs,
       });
     } catch (error) {
-      return res.status(400).send({
+      return res.status(500).send({
         error: true,
         message: "Something went wrong",
         warning: null,

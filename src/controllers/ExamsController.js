@@ -48,8 +48,18 @@ class ExamsController {
   }
 
   async findAll(req, res) {
-    const exams = await Exam.findAll({ where: { status: "active" } });
-    return res.status(200).send(exams);
+    try {
+      const exams = await Exam.findAll({ where: { status: "active" } });
+      return res
+        .status(200)
+        .send({ error: false, message: "Successfully get exams", exams });
+    } catch (error) {
+      return res.status(500).send({
+        error: true,
+        message: "Something Went Wrong",
+        lab: null,
+      });
+    }
   }
 
   async create(req, res) {
@@ -184,7 +194,8 @@ class ExamsController {
         error: false,
         message: `Successfully deleted Exam`,
         exam: {
-          exam: exam.id,
+          id: exam.id,
+          name: exam.name,
           status: DELETE_STATUS,
         },
       });

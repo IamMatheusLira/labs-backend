@@ -1,0 +1,1070 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "labs",
+    "description": "Documentation from Labs Api",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api": {
+      "get": {
+        "description": "Route that prints Hello Labs",
+        "responses": {
+          "200": {
+            "description": "Return a object with a message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "message": "Hello Labs"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exams": {
+      "get": {
+        "description": "Route that get all active exams",
+        "responses": {
+          "200": {
+            "description": "Return a array of exams",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exams": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "type": "enum",
+                        "status": "enum",
+                        "createdAt": "date",
+                        "updatedAt": "date"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exams": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Route that create a exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Exam name",
+                  "type": "enum: 'clinicalAnalysis'|'image'"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return the created exam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text",
+                      "type": "enum",
+                      "status": "enum",
+                      "createdAt": "date",
+                      "updatedAt": "date"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Route that update a exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "id": "number",
+                  "name": "Exam name",
+                  "type": "enum: 'clinicalAnalysis'|'image'",
+                  "status": "enum: 'active'|'inactive'"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the updated exam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text",
+                      "type": "enum",
+                      "status": "enum"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Route that delete a exam",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "id": "number"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the deleted exam",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text",
+                      "status": "enum"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exams/:name": {
+      "get": {
+        "description": "Route that get a exam by name",
+        "responses": {
+          "200": {
+            "description": "Return the exam and yours labs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text",
+                      "type": "enum",
+                      "status": "enum",
+                      "createdAt": "date",
+                      "updatedAt": "date",
+                      "labs": [
+                        {
+                          "id": "number",
+                          "name": "text",
+                          "address": "text",
+                          "status": "enum",
+                          "createdAt": "date",
+                          "updatedAt": "date"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exams/associate": {
+      "put": {
+        "description": "Route that associates an exam with a lab",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "exam": {
+                    "id": "number"
+                  },
+                  "lab": {
+                    "id": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the association",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text"
+                    },
+                    "lab": {
+                      "id": "number",
+                      "name": "text"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/exams/disassociate": {
+      "put": {
+        "description": "Route that disassociates an exam from a lab",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "exam": {
+                    "id": "number"
+                  },
+                  "lab": {
+                    "id": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the disassociation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "exam": {
+                      "id": "number",
+                      "name": "text"
+                    },
+                    "lab": {
+                      "id": "number",
+                      "name": "text"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/labs": {
+      "get": {
+        "description": "Route that get all active labs",
+        "responses": {
+          "200": {
+            "description": "Return a array of labs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text",
+                        "status": "enum",
+                        "updatedAt": "date",
+                        "createdAt": "date"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "labs": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Route that create a lab",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "Laboratório",
+                  "address": "Rua qualquer"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Return the created lab",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "lab": {
+                      "id": "number",
+                      "name": "text",
+                      "address": "text",
+                      "updatedAt": "date",
+                      "createdAt": "date",
+                      "status": "enum"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "lab": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "lab": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Route that update a lab",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "id": "number",
+                  "name": "text",
+                  "address": "text",
+                  "status": "enum: 'active'|'inactive'"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the updated lab",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "lab": {
+                      "id": "number",
+                      "name": "text",
+                      "address": "text",
+                      "status": "enum"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "lab": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "lab": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Route that delete a lab",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "id": "number"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the deleted lab",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "lab": {
+                      "id": "number",
+                      "name": "text",
+                      "status": "enum"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Return an error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "exam": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/lags/lot": {
+      "post": {
+        "description": "Route that create several labs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "labs": [
+                    {
+                      "name": "text",
+                      "address": "text"
+                    },
+                    {
+                      "name": "text",
+                      "address": "text"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the created labs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": null,
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text",
+                        "updatedAt": "date",
+                        "createdAt": "date",
+                        "status": "enum"
+                      },
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text",
+                        "updatedAt": "date",
+                        "createdAt": "date",
+                        "status": "enum"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200/": {
+            "description": "Return an partial update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": [
+                      {
+                        "message": "text",
+                        "lab": {
+                          "id": "number",
+                          "name": "text",
+                          "address": "text",
+                          "updatedAt": "date",
+                          "createdAt": "date",
+                          "status": "enum"
+                        }
+                      }
+                    ],
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text",
+                        "updatedAt": "date",
+                        "createdAt": "date",
+                        "status": "enum"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "warning": null,
+                    "labs": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Route that update several labs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "labs": [
+                    {
+                      "id": "number",
+                      "name": "text",
+                      "address": "text",
+                      "status": "enum: 'active'|'inactive'"
+                    },
+                    {
+                      "id": "number",
+                      "name": "text",
+                      "address": "text",
+                      "status": "enum: 'active'|'inactive'"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the updated labs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": null,
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text"
+                      },
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200/": {
+            "description": "Return an partial update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": [
+                      {
+                        "message": "text",
+                        "lab": {
+                          "id": "number",
+                          "name": "text",
+                          "address": "text",
+                          "status": "enum"
+                        }
+                      }
+                    ],
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "address": "text",
+                        "status": "enum"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "warning": null,
+                    "labs": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Route that delete several labs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "labs": [
+                    {
+                      "id": "number"
+                    },
+                    {
+                      "id": "number"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Return the updated labs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": null,
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "status": "text"
+                      },
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "status": "text"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200/": {
+            "description": "Return an partial update",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": false,
+                    "message": "text",
+                    "warning": [
+                      {
+                        "message": "text",
+                        "lab": null
+                      }
+                    ],
+                    "labs": [
+                      {
+                        "id": "number",
+                        "name": "text",
+                        "status": "enum"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Return an server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "example": {
+                    "error": true,
+                    "message": "text",
+                    "warning": null,
+                    "labs": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
